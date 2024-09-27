@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Tracking App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .product-list {
+            list-style: none;
+            padding: 0;
+        }
+        .product-list li {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+        .product-list button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .product-list button:hover {
+            background-color: #0056b3;
+        }
+        .total {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bar Bestelling Tracker</h1>
+
+        <!-- Product List -->
+        <ul class="product-list">
+            <li>
+                Fanta - €2,00 
+                <button onclick="addToOrder('Fanta', 2)">Voeg toe</button>
+            </li>
+            <li>
+                Cola - €2,00
+                <button onclick="addToOrder('Cola', 2)">Voeg toe</button>
+            </li>
+            <li>
+                Water - €1,00
+                <button onclick="addToOrder('Water', 1)">Voeg toe</button>
+            </li>
+            <li>
+                Bier - €3,00
+                <button onclick="addToOrder('Bier', 3)">Voeg toe</button>
+            </li>
+        </ul>
+
+        <!-- Order summary -->
+        <div id="orderSummary">
+            <h2>Bestellingen</h2>
+            <ul id="orderList"></ul>
+            <p class="total">Totaal: €<span id="totalAmount">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let totalAmount = 0;
+        let orderList = [];
+
+        function addToOrder(product, price) {
+            totalAmount += price;
+            orderList.push(`${product} - €${price}`);
+            updateOrderList();
+        }
+
+        function updateOrderList() {
+            // Update total amount
+            document.getElementById('totalAmount').innerText = totalAmount.toFixed(2);
+
+            // Update order list
+            const orderListElement = document.getElementById('orderList');
+            orderListElement.innerHTML = ''; // Clear the list first
+            orderList.forEach(item => {
+                const li = document.createElement('li');
+                li.innerText = item;
+                orderListElement.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
